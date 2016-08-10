@@ -13,6 +13,6 @@
     </head>
     <body>
         <h1>Olá ${P.nome}!</h1>
-        <h1>Voce tem ${P.idade} anos!</h1>
+        <h1>Você tem ${P.idade} anos!</h1>
     </body>
 </html>
