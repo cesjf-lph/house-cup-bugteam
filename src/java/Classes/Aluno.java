@@ -17,4 +17,8 @@ public class Aluno {
     Periodo per = new Periodo();
     Grupo gru = new Grupo();
     
+    public Aluno(){
+        
+    }
+    
 }
