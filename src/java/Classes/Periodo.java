@@ -9,6 +9,6 @@ package Classes;
  *
  * @author aluno
  */
-public class Período {
+public class Periodo {
     
 }

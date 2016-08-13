@@ -11,5 +11,10 @@ package Classes;
  * @author aluno
  */
 public class Aluno {
+    private String aluno;
+    private String matricula;
+    private String cpf;
+    Periodo per = new Periodo();
+    Grupo gru = new Grupo();
     
 }
