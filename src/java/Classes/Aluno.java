@@ -13,20 +13,15 @@ package Classes;
 public class Aluno {
     private String aluno;
     private String matricula;
-    private String cpf;
     private float pontos;
-    private String grupo;
+    private String periodo;
     
     public Aluno(){
         
     }
     
-    public float pontuacaoTotal(Grupo grupo){
-        float pontuacaoTotal = 0;
+    public void pontuacaoIndividual(){
         
-        
-                
-        return pontuacaoTotal;
     }
 
     /**
@@ -56,21 +51,7 @@ public class Aluno {
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-
-    /**
-     * @return the cpf
-     */
-    public String getCpf() {
-        return cpf;
-    }
-
-    /**
-     * @param cpf the cpf to set
-     */
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
+ 
     /**
      * @return the pontos
      */
@@ -86,16 +67,19 @@ public class Aluno {
     }
 
     /**
-     * @return the grupo
+     * @return the periodo
      */
-    public String getGrupo() {
-        return grupo;
+    public String getPeriodo() {
+        return periodo;
     }
 
     /**
-     * @param grupo the grupo to set
+     * @param periodo the periodo to set
      */
-    public void setGrupo(String grupo) {
-        this.grupo = grupo;
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
     }
+
+ 
+  
 }
