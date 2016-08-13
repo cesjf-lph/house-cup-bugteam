@@ -12,7 +12,22 @@ package Classes;
  */
 public class Professor {
     
+    private String nome;
+    private String tel;
+    private String cpf;
+    private String identidade;
+    
     public Professor(){
     
-}
+    }
+    
+    public void AdicionarPontos(){
+        
+    }
+    
+    public void excluirPontos(){
+        
+    }
+    
+    
 }
