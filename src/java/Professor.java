@@ -10,4 +10,7 @@
  */
 public class Professor {
     
+    public Professor(){
+    
+}
 }
