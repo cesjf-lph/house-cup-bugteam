@@ -1,5 +1,11 @@
 package Classes;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,9 +16,13 @@ package Classes;
  *
  * @author aluno
  */
-public class Aluno {
-    private String aluno;
-    private String matricula;
+@Entity
+public class Aluno implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String nome;
     private float pontos;
     private String periodo;
     
@@ -24,32 +34,22 @@ public class Aluno {
         
     }
 
+        public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     /**
      * @return the aluno
      */
-    public String getAluno() {
-        return aluno;
+    public String getNome() {
+        return nome;
     }
 
-    /**
-     * @param aluno the aluno to set
-     */
-    public void setAluno(String aluno) {
-        this.aluno = aluno;
-    }
-
-    /**
-     * @return the matricula
-     */
-    public String getMatricula() {
-        return matricula;
-    }
-
-    /**
-     * @param matricula the matricula to set
-     */
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
  
     /**
