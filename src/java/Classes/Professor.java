@@ -22,6 +22,11 @@ public class Professor implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
+    
+    public Professor(){
+    
+    }
+    
     public Long getId() {
         return id;
     }
@@ -37,18 +42,4 @@ public class Professor implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    public Professor(){
-    
-    }
-    
-    public void AdicionarPontos(){
-        
-    }
-    
-    public void excluirPontos(){
-        
-    }
-    
-    
 }

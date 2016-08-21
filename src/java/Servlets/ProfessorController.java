@@ -6,7 +6,9 @@
 package Servlets;
 
 import Classes.Aluno;
+import Classes.Professor;
 import br.cesjf.lpwsd.dao.AlunoJpaController;
+import br.cesjf.lpwsd.dao.ProfessorJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -28,7 +30,7 @@ import javax.transaction.UserTransaction;
  *
  * @author Filipe
  */
-@WebServlet(name = "ProfessorController", urlPatterns = {"/ProfessorController"})
+@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar"})
 public class ProfessorController extends HttpServlet {
 
     @PersistenceUnit(unitName = "Projeto-pu")
@@ -36,30 +38,45 @@ public class ProfessorController extends HttpServlet {
 
     @Resource(name = "java:comp/UserTransaction")
     UserTransaction ut;
-    
+
+    AlunoJpaController ajc = new AlunoJpaController(ut, emf);
+    Aluno a = new Aluno();
+
+    ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
+    Professor p = new Professor();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String uri = request.getRequestURI();
+        if (uri.contains("/criar")) {
+            try {
+                ajc.create(a);
+                pjc.create(p);
+            } catch (Exception ex) {
+                Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (uri.contains("/listar")) {
+            listAll(request, response);
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          AlunoJpaController ajc= new AlunoJpaController(ut,emf);
-          Aluno a =new Aluno();
-          
-        try {
-            ajc.create(a);
-        } catch (Exception ex) {
-            Logger.getLogger(ProfessorController1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
+
     }
-          private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String queryStr = "SELECT o FROM Candidato o";
-        
-        
+
+    private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String queryStr = "SELECT a FROM Aluno a";
+
         EntityManager em = emf.createEntityManager();
         Query q = em.createQuery(queryStr);
-        List<Aluno> alunos = q.getResultList();
-        request.setAttribute("alunos", alunos);
+        List<Aluno> alunosL = q.getResultList();
+        request.setAttribute("alunos", alunosL);
         request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
     }
+
     @Override
     public String getServletInfo() {
         return "Short description";
