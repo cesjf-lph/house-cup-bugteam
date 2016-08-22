@@ -30,7 +30,7 @@ import javax.transaction.UserTransaction;
  *
  * @author Filipe
  */
-@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar"})
+@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar","/pontuar"})
 public class ProfessorController extends HttpServlet {
 
     @PersistenceUnit(unitName = "Projeto-pu")
@@ -44,27 +44,44 @@ public class ProfessorController extends HttpServlet {
 
     ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
     Professor p = new Professor();
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String uri = request.getRequestURI();
-        if (uri.contains("/criar")) {
+        if (request.getRequestURI().contains("/criar")) {
             try {
                 ajc.create(a);
                 pjc.create(p);
             } catch (Exception ex) {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (uri.contains("/listar")) {
+        } else if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
+        }
+        else if (request.getRequestURI().contains("/pontuar")) {   
+            edit(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+       
+    }
+        private void edit(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+            Long id = Long.parseLong(request.getParameter("id"));
+            String pont = request.getParameter("ponto");
 
+            EntityManager em = emf.createEntityManager();
+            Aluno aluno = em.find(Aluno.class, id);
+            aluno.setPontos(aluno.getPontos()+Integer.parseInt(pont));
+
+            em.getTransaction().begin();
+            em.persist(aluno);
+            em.getTransaction().commit();
+
+            listAll(request, response);
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
