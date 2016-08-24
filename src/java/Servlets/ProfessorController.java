@@ -10,7 +10,6 @@ import Classes.Professor;
 import br.cesjf.lpwsd.dao.AlunoJpaController;
 import br.cesjf.lpwsd.dao.ProfessorJpaController;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +29,7 @@ import javax.transaction.UserTransaction;
  *
  * @author Filipe
  */
-@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar","/pontuar"})
+@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar", "/pontuar"})
 public class ProfessorController extends HttpServlet {
 
     @PersistenceUnit(unitName = "Projeto-pu")
@@ -39,17 +38,21 @@ public class ProfessorController extends HttpServlet {
     @Resource(name = "java:comp/UserTransaction")
     UserTransaction ut;
 
-    AlunoJpaController ajc = new AlunoJpaController(ut, emf);
-    Aluno a = new Aluno();
-
-    ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
-    Professor p = new Professor();
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getRequestURI().contains("/criar")) {
             try {
+                AlunoJpaController ajc = new AlunoJpaController(ut, emf);
+                Aluno a = new Aluno();
+                a.setNome("Teste");
+                a.setPontos(10);
+                a.setPeriodo("5");
+
+                ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
+                Professor p = new Professor();
+                p.setNome("TestePO");
+
                 ajc.create(a);
                 pjc.create(p);
             } catch (Exception ex) {
@@ -57,39 +60,36 @@ public class ProfessorController extends HttpServlet {
             }
         } else if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
-        }
-        else if (request.getRequestURI().contains("/pontuar")) {   
+        } else if (request.getRequestURI().contains("/pontuar")) {
             edit(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       
+            throws ServletException, IOException {
+
     }
-        private void edit(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-            Long id = Long.parseLong(request.getParameter("id"));
-            String pont = request.getParameter("ponto");
 
-            EntityManager em = emf.createEntityManager();
-            Aluno aluno = em.find(Aluno.class, id);
-            aluno.setPontos(aluno.getPontos()+Integer.parseInt(pont));
+    private void edit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String pont = request.getParameter("ponto");
 
-            em.getTransaction().begin();
-            em.persist(aluno);
-            em.getTransaction().commit();
+        EntityManager em = emf.createEntityManager();
+        Aluno aluno = em.find(Aluno.class, id);
+        aluno.setPontos(aluno.getPontos() + Integer.parseInt(pont));
 
-            listAll(request, response);
+        em.getTransaction().begin();
+        em.persist(aluno);
+        em.getTransaction().commit();
+
+        listAll(request, response);
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String queryStr = "SELECT a FROM Aluno a";
-
-        EntityManager em = emf.createEntityManager();
-        Query q = em.createQuery(queryStr);
-        List<Aluno> alunosL = q.getResultList();
+         AlunoJpaController ajc = new AlunoJpaController(ut, emf);
+        List<Aluno> alunosL = ajc.findAlunoEntities();
         request.setAttribute("alunos", alunosL);
         request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
     }
