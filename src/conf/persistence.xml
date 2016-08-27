@@ -4,6 +4,7 @@
     <jta-data-source>jdbc/sample</jta-data-source>
     <class>Classes.Aluno</class>
     <class>Classes.Professor</class>
+    <class>Classes.Eventos</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

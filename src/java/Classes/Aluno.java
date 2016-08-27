@@ -23,8 +23,7 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
-    private float pontos;
-    private String periodo;
+    private String grupo;
     
     public Aluno(){
         
@@ -52,32 +51,19 @@ public class Aluno implements Serializable {
         this.nome = nome;
     }
  
+    
     /**
-     * @return the pontos
+     * @return the grupo
      */
-    public float getPontos() {
-        return pontos;
+    public String getGrupo() {
+        return grupo;
     }
 
     /**
-     * @param pontos the pontos to set
+     * @param grupo the grupo to set
      */
-    public void setPontos(float pontos) {
-        this.pontos = pontos;
-    }
-
-    /**
-     * @return the periodo
-     */
-    public String getPeriodo() {
-        return periodo;
-    }
-
-    /**
-     * @param periodo the periodo to set
-     */
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
     }
 
  

@@ -17,7 +17,6 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,8 +45,8 @@ public class ProfessorController extends HttpServlet {
                 AlunoJpaController ajc = new AlunoJpaController(ut, emf);
                 Aluno a = new Aluno();
                 a.setNome("Teste");
-                a.setPontos(10);
-                a.setPeriodo("5");
+                a.getGrupo();
+                
 
                 ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
                 Professor p = new Professor();
@@ -78,7 +77,7 @@ public class ProfessorController extends HttpServlet {
 
         EntityManager em = emf.createEntityManager();
         Aluno aluno = em.find(Aluno.class, id);
-        aluno.setPontos(aluno.getPontos() + Integer.parseInt(pont));
+        
 
         em.getTransaction().begin();
         em.persist(aluno);
@@ -88,7 +87,7 @@ public class ProfessorController extends HttpServlet {
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         AlunoJpaController ajc = new AlunoJpaController(ut, emf);
+        AlunoJpaController ajc = new AlunoJpaController(ut, emf);
         List<Aluno> alunosL = ajc.findAlunoEntities();
         request.setAttribute("alunos", alunosL);
         request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
