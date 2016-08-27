@@ -14,11 +14,23 @@
     <body>
         <form action="/pontuar">
               <div>
-                <label>Insira a Matricula(ID) do aluno</label>
-                <input type="text" name="ponto"/>
-                
-                <input type="submit" value="" />
+                  <select name="professor">
+                      <option></option>
+                      <option></option>
+                  </select>
             </div>
+            
+             <div> 
+                 <select name="aluno">
+                     <option></option>
+                     <option></option>
+                 </select>
+             </div>
+            
+             <div> 
+                 <input type="text" name="pontos" value="0" />
+             </div>
+            <input type="submit" value="" />
             
         </form>
         

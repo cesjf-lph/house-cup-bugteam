@@ -45,18 +45,18 @@ public class ProfessorController extends HttpServlet {
         if (request.getRequestURI().contains("/criar")) {
             try {
                 AlunoJpaController ajc = new AlunoJpaController(ut, emf);
-                Aluno a = ajc.findAluno(1L);
-                        /*new Aluno();
+                Aluno a =new Aluno();
                 a.setNome("Teste");
                 a.setGrupo("1");
-                a.setPeriodo("2015");*/
+                a.setPeriodo("2015");
                 
 
                 ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
-                Professor p = pjc.findProfessor(2L);
-                        /*new Professor();
+                Professor p =new Professor();
                 p.setNome("TestePO");
-*/
+
+                ajc.create(a);
+                pjc.create(p);
                 
                 EventosJpaController ejc = new EventosJpaController(ut, emf); 
                 Integer ponto = 10;
@@ -64,8 +64,7 @@ public class ProfessorController extends HttpServlet {
                 Eventos e = new Eventos(a, p, ponto);
                 
     
-                //ajc.create(a);
-                //pjc.create(p);
+                
                 ejc.create(e);
             } catch (Exception ex) {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +72,8 @@ public class ProfessorController extends HttpServlet {
         } else if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
         } else if (request.getRequestURI().contains("/pontuar")) {
-            edit(request, response);
+            //edit(request, response);
+            request.getRequestDispatcher("/WEB-INF/pontuar.jsp").forward(request, response);
         }
     }
 
