@@ -22,9 +22,13 @@ public class Eventos implements Serializable {
     private Long id;
     private Aluno a;
     private Professor p;
-    private String pontos;
+    private Integer pontos;
 
-    public Eventos(Aluno a, Professor p, String pontos) {
+    public Eventos() {
+    }
+
+    
+    public Eventos(Aluno a, Professor p, Integer pontos) {
         this.a = a;
         this.p = p;
         this.pontos = pontos;
@@ -63,11 +67,11 @@ public class Eventos implements Serializable {
         this.p = p;
     }
 
-    public String getPontos() {
+    public Integer getPontos() {
         return pontos;
     }
 
-    public void setPontos(String pontos) {
+    public void setPontos(Integer pontos) {
         this.pontos = pontos;
     }
     

@@ -56,7 +56,7 @@ public class ProfessorController extends HttpServlet {
                 p.setNome("TestePO");
 
                 EventosJpaController ejc = new EventosJpaController(ut, emf); 
-                String ponto = "10";
+                Integer ponto = 10;
                 //String ponto = request.getParameter(Cponto);
                 Eventos e = new Eventos(a, p, ponto);
                 
