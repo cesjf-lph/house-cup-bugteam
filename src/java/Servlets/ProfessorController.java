@@ -100,9 +100,12 @@ public class ProfessorController extends HttpServlet {
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AlunoJpaController ajc = new AlunoJpaController(ut, emf);
-        List<Aluno> alunosL = ajc.findAlunoEntities();
-        request.setAttribute("alunos", alunosL);
+        
+        EventosJpaController ejc = new EventosJpaController(ut, emf); 
+        
+        List<Eventos> eventosL = ejc.findEventosEntities();
+        //List<Eventos> eventosL = ajc.findAlunoEntities();
+        request.setAttribute("eventos", eventosL);
         request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
     }
 

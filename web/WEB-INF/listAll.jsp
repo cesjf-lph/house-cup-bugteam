@@ -11,22 +11,22 @@
         <table border="1px" cellspacing=0 bordercolor=red>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Periodo</th>
+                
+                <th>Nome do aluno</th>
+                <th>Professor</th>
                 <th>Pontos</th>
               </tr>
                 
             </thead>
             <tbody>
-                <c:forEach var="aluno" items="${alunos}">
+                <c:forEach var="evento" items="${eventos}">
                 <tr>
 
                     
-                        <td>${aluno.id}</td>
-                        <td>${aluno.nome}</td>
-                        <td>${aluno.periodo}</td>
-                        <td>${aluno.pontos}</td>
+                        <td>${evento.aluno.nome}</td>
+                        <td>${evento.professor.nome}</td>
+                        <td>${evento.pontos}</td>
+                     
                    
                </tr>
                 </c:forEach>  
