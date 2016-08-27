@@ -6,8 +6,10 @@
 package Servlets;
 
 import Classes.Aluno;
+import Classes.Eventos;
 import Classes.Professor;
 import br.cesjf.lpwsd.dao.AlunoJpaController;
+import br.cesjf.lpwsd.dao.EventosJpaController;
 import br.cesjf.lpwsd.dao.ProfessorJpaController;
 import java.io.IOException;
 import java.util.List;
@@ -45,15 +47,23 @@ public class ProfessorController extends HttpServlet {
                 AlunoJpaController ajc = new AlunoJpaController(ut, emf);
                 Aluno a = new Aluno();
                 a.setNome("Teste");
-                a.getGrupo();
+                a.setGrupo("1");
+                a.setPeriodo("2015");
                 
 
                 ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
                 Professor p = new Professor();
                 p.setNome("TestePO");
 
+                EventosJpaController ejc = new EventosJpaController(ut, emf); 
+                String ponto = "10";
+                //String ponto = request.getParameter(Cponto);
+                Eventos e = new Eventos(a, p, ponto);
+                
+    
                 ajc.create(a);
                 pjc.create(p);
+                ejc.create(e);
             } catch (Exception ex) {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
             }

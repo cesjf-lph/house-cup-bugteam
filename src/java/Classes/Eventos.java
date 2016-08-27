@@ -28,8 +28,17 @@ public class Eventos implements Serializable {
         this.a = a;
         this.p = p;
         this.pontos = pontos;
+        
     }
 
+    @Override
+    public String toString() {
+      
+        return "Eventos: {O professor" + p.getNome() + ", pontuou o aluno " + a.getNome() + ", com " + pontos + "ponto(s)" + '}';
+    }
+    
+    
+    
     public Long getId() {
         return id;
     }

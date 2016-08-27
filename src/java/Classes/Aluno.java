@@ -24,6 +24,7 @@ public class Aluno implements Serializable {
     private Long id;
     private String nome;
     private String grupo;
+    private String periodo;
     
     public Aluno(){
         
@@ -64,6 +65,20 @@ public class Aluno implements Serializable {
      */
     public void setGrupo(String grupo) {
         this.grupo = grupo;
+    }
+
+    /**
+     * @return the periodo
+     */
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    /**
+     * @param periodo the periodo to set
+     */
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
     }
 
  
