@@ -20,8 +20,8 @@ public class Eventos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Aluno a;
-    private Professor p;
+    private Aluno aluno;
+    private Professor professor;
     private Integer pontos;
 
     public Eventos() {
@@ -29,8 +29,8 @@ public class Eventos implements Serializable {
 
     
     public Eventos(Aluno a, Professor p, Integer pontos) {
-        this.a = a;
-        this.p = p;
+        this.aluno = a;
+        this.professor = p;
         this.pontos = pontos;
         
     }
@@ -38,7 +38,7 @@ public class Eventos implements Serializable {
     @Override
     public String toString() {
       
-        return "Eventos: {O professor" + p.getNome() + ", pontuou o aluno " + a.getNome() + ", com " + pontos + "ponto(s)" + '}';
+        return "Eventos: {O professor" + professor.getNome() + ", pontuou o aluno " + aluno.getNome() + ", com " + pontos + "ponto(s)" + '}';
     }
     
     
@@ -51,20 +51,20 @@ public class Eventos implements Serializable {
         this.id = id;
     }
 
-    public Aluno getA() {
-        return a;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setA(Aluno a) {
-        this.a = a;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
-    public Professor getP() {
-        return p;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setP(Professor p) {
-        this.p = p;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     public Integer getPontos() {

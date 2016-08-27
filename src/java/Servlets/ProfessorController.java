@@ -45,24 +45,27 @@ public class ProfessorController extends HttpServlet {
         if (request.getRequestURI().contains("/criar")) {
             try {
                 AlunoJpaController ajc = new AlunoJpaController(ut, emf);
-                Aluno a = new Aluno();
+                Aluno a = ajc.findAluno(1L);
+                        /*new Aluno();
                 a.setNome("Teste");
                 a.setGrupo("1");
-                a.setPeriodo("2015");
+                a.setPeriodo("2015");*/
                 
 
                 ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
-                Professor p = new Professor();
+                Professor p = pjc.findProfessor(2L);
+                        /*new Professor();
                 p.setNome("TestePO");
-
+*/
+                
                 EventosJpaController ejc = new EventosJpaController(ut, emf); 
                 Integer ponto = 10;
                 //String ponto = request.getParameter(Cponto);
                 Eventos e = new Eventos(a, p, ponto);
                 
     
-                ajc.create(a);
-                pjc.create(p);
+                //ajc.create(a);
+                //pjc.create(p);
                 ejc.create(e);
             } catch (Exception ex) {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);

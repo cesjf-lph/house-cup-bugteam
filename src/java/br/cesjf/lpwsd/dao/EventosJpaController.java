@@ -6,8 +6,8 @@
 package br.cesjf.lpwsd.dao;
 
 import Classes.Eventos;
-import Classes.exceptions.NonexistentEntityException;
-import Classes.exceptions.RollbackFailureException;
+import br.cesjf.lpwsd.dao.exceptions.NonexistentEntityException;
+import br.cesjf.lpwsd.dao.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;

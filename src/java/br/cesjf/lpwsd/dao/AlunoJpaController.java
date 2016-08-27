@@ -20,7 +20,7 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author Filipe
+ * @author aluno
  */
 public class AlunoJpaController implements Serializable {
 

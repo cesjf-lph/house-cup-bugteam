@@ -6,8 +6,8 @@
 package br.cesjf.lpwsd.dao;
 
 import Classes.Professor;
-import Classes.exceptions.NonexistentEntityException;
-import Classes.exceptions.RollbackFailureException;
+import br.cesjf.lpwsd.dao.exceptions.NonexistentEntityException;
+import br.cesjf.lpwsd.dao.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,7 +20,7 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author Filipe
+ * @author aluno
  */
 public class ProfessorJpaController implements Serializable {
 
