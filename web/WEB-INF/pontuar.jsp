@@ -3,7 +3,7 @@
     Created on : 21/08/2016, 16:17:49
     Author     : Filipe
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,14 +15,18 @@
         <form action="/pontuar">
             <div>
 
-                <select name="professor" >
-                    <c:forEach var="professor" items="${Professores}">
+                <select name="professores" >
+                    <option>Informe o professor...</option>
+                    <c:forEach var="professor" items="${professores}">
                         <option value="${professor.id}">${professor.nome}</option>
                     </c:forEach> 
                 </select>
 
-                <select name="aluno" >
-
+                <select name="alunos" >
+                    <option>Informe o aluno...</option>
+                    <c:forEach var="aluno" items="${alunos}">
+                        <option value="${aluno.id}">${aluno.nome}</option>
+                    </c:forEach> 
                 </select>
                               
                 <input type="text" name="Cponto" value="0" size="3" />

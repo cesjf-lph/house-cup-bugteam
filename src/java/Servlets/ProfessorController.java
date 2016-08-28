@@ -41,38 +41,36 @@ public class ProfessorController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         AlunoJpaController ajc = new AlunoJpaController(ut, emf);
         ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
-        EventosJpaController ejc = new EventosJpaController(ut, emf); 
-        
-        if (request.getRequestURI().contains("/criar")) { 
-            try {
-                Aluno a =new Aluno();
-                Professor p =new Professor();
-//                a.setNome("Teste");
-//                a.setGrupo("1");
-//                a.setPeriodo("2015");
-//                p.setNome("TestePO");
-//                ajc.create(a);
-//                pjc.create(p);
-//                Integer ponto = 10;
-                p.setId(Long.parseLong(request.getParameter("professor")));
-                a.setId(Long.parseLong(request.getParameter("aluno")));
-                int ponto = Integer.parseInt(request.getParameter("Cponto"));
+        EventosJpaController ejc = new EventosJpaController(ut, emf);
 
+        if (request.getRequestURI().contains("/criar")) {
+                    Aluno a = new Aluno();
+        Professor p = new Professor();
+            try {
+////                p.getId(Long.parseLong(request.getParameter("professor")));
+////                a.getId(Long.parseLong(request.getParameter("aluno")));
+                p.getNome(request.getParameter("professor"));
+                a.getId(Long.parseLong(request.getParameter("aluno")));
+                int ponto = Integer.parseInt(request.getParameter("Cponto"));
                 Eventos e = new Eventos(a, p, ponto);
-                
-    
-                
                 ejc.create(e);
+               listAll(request, response);
             } catch (Exception ex) {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
         } else if (request.getRequestURI().contains("/pontuar")) {
-            
+
+            List<Aluno> alunoL = ajc.findAlunoEntities();
+            request.setAttribute("alunos", alunoL);
+
+            List<Professor> professorL = pjc.findProfessorEntities();
+            request.setAttribute("professores", professorL);
+
             request.getRequestDispatcher("/WEB-INF/pontuar.jsp").forward(request, response);
         }
     }
@@ -80,7 +78,6 @@ public class ProfessorController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response)
@@ -90,7 +87,6 @@ public class ProfessorController extends HttpServlet {
 
         EntityManager em = emf.createEntityManager();
         Aluno aluno = em.find(Aluno.class, id);
-        
 
         em.getTransaction().begin();
         em.persist(aluno);
@@ -100,11 +96,9 @@ public class ProfessorController extends HttpServlet {
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        EventosJpaController ejc = new EventosJpaController(ut, emf); 
-        
+
+        EventosJpaController ejc = new EventosJpaController(ut, emf);
         List<Eventos> eventosL = ejc.findEventosEntities();
-        //List<Eventos> eventosL = ajc.findAlunoEntities();
         request.setAttribute("eventos", eventosL);
         request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
     }
@@ -115,3 +109,10 @@ public class ProfessorController extends HttpServlet {
     }// </editor-fold>
 
 }
+//                a.setNome("Teste");
+//                a.setGrupo("1");
+//                a.setPeriodo("2015");
+//                p.setNome("TestePO");
+//                ajc.create(a);
+//                pjc.create(p);
+//                Integer ponto = 10;

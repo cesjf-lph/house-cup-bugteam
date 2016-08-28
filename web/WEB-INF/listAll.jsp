@@ -21,13 +21,9 @@
             <tbody>
                 <c:forEach var="evento" items="${eventos}">
                 <tr>
-
-                    
                         <td>${evento.aluno.nome}</td>
                         <td>${evento.professor.nome}</td>
                         <td>${evento.pontos}</td>
-                     
-                   
                </tr>
                 </c:forEach>  
             </tbody>
