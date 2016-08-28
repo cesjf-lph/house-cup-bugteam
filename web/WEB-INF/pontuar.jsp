@@ -12,17 +12,17 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="/pontuar">
+        <form action="criar" method="get">
             <div>
 
-                <select name="professores" >
+                <select name="professor" >
                     <option>Informe o professor...</option>
                     <c:forEach var="professor" items="${professores}">
                         <option value="${professor.id}">${professor.nome}</option>
                     </c:forEach> 
                 </select>
 
-                <select name="alunos" >
+                <select name="aluno" >
                     <option>Informe o aluno...</option>
                     <c:forEach var="aluno" items="${alunos}">
                         <option value="${aluno.id}">${aluno.nome}</option>
@@ -32,7 +32,7 @@
                 <input type="text" name="Cponto" value="0" size="3" />
            
             </div>
-            <input type="submit" value="Enviar" name="Enviar" />
+            <input type="submit" value="Enviar" />
        
         </form>
     </body>

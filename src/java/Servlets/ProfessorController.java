@@ -47,17 +47,18 @@ public class ProfessorController extends HttpServlet {
         EventosJpaController ejc = new EventosJpaController(ut, emf);
 
         if (request.getRequestURI().contains("/criar")) {
-                    Aluno a = new Aluno();
-        Professor p = new Professor();
+            Aluno a = new Aluno();
+            Professor p = new Professor();
             try {
-////                p.getId(Long.parseLong(request.getParameter("professor")));
-////                a.getId(Long.parseLong(request.getParameter("aluno")));
-                p.getNome(request.getParameter("professor"));
-                a.getId(Long.parseLong(request.getParameter("aluno")));
+                p.setNome(request.getParameter("professor"));
+                a.setNome(request.getParameter("aluno"));
+
+                a.setId(Long.parseLong(request.getParameter("aluno")));
+                p.setId(Long.parseLong(request.getParameter("professor")));
                 int ponto = Integer.parseInt(request.getParameter("Cponto"));
                 Eventos e = new Eventos(a, p, ponto);
                 ejc.create(e);
-               listAll(request, response);
+                listAll(request, response);
             } catch (Exception ex) {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -107,12 +108,5 @@ public class ProfessorController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
-//                a.setNome("Teste");
-//                a.setGrupo("1");
-//                a.setPeriodo("2015");
-//                p.setNome("TestePO");
-//                ajc.create(a);
-//                pjc.create(p);
-//                Integer ponto = 10;
+
