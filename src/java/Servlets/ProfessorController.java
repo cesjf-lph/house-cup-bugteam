@@ -41,26 +41,26 @@ public class ProfessorController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        if (request.getRequestURI().contains("/criar")) {
+    throws ServletException, IOException {
+        AlunoJpaController ajc = new AlunoJpaController(ut, emf);
+        ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
+        EventosJpaController ejc = new EventosJpaController(ut, emf); 
+        
+        if (request.getRequestURI().contains("/criar")) { 
             try {
-                AlunoJpaController ajc = new AlunoJpaController(ut, emf);
                 Aluno a =new Aluno();
-                a.setNome("Teste");
-                a.setGrupo("1");
-                a.setPeriodo("2015");
-                
-
-                ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
                 Professor p =new Professor();
-                p.setNome("TestePO");
+//                a.setNome("Teste");
+//                a.setGrupo("1");
+//                a.setPeriodo("2015");
+//                p.setNome("TestePO");
+//                ajc.create(a);
+//                pjc.create(p);
+//                Integer ponto = 10;
+                p.setId(Long.parseLong(request.getParameter("professor")));
+                a.setId(Long.parseLong(request.getParameter("aluno")));
+                int ponto = Integer.parseInt(request.getParameter("Cponto"));
 
-                ajc.create(a);
-                pjc.create(p);
-                
-                EventosJpaController ejc = new EventosJpaController(ut, emf); 
-                Integer ponto = 10;
-                //String ponto = request.getParameter(Cponto);
                 Eventos e = new Eventos(a, p, ponto);
                 
     
@@ -72,7 +72,7 @@ public class ProfessorController extends HttpServlet {
         } else if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
         } else if (request.getRequestURI().contains("/pontuar")) {
-            //edit(request, response);
+            
             request.getRequestDispatcher("/WEB-INF/pontuar.jsp").forward(request, response);
         }
     }

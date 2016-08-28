@@ -13,28 +13,23 @@
     </head>
     <body>
         <form action="/pontuar">
-              <div>
-                  <select name="professor">
-                      <option></option>
-                      <option></option>
-                  </select>
+            <div>
+
+                <select name="professor" >
+                    <c:forEach var="professor" items="${Professores}">
+                        <option value="${professor.id}">${professor.nome}</option>
+                    </c:forEach> 
+                </select>
+
+                <select name="aluno" >
+
+                </select>
+                              
+                <input type="text" name="Cponto" value="0" size="3" />
+           
             </div>
-            
-             <div> 
-                 <select name="aluno">
-                     <option></option>
-                     <option></option>
-                 </select>
-             </div>
-            
-             <div> 
-                 <input type="text" name="pontos" value="0" />
-             </div>
-            <input type="submit" value="" />
-            
+            <input type="submit" value="Enviar" name="Enviar" />
+       
         </form>
-        
-        
-        
     </body>
 </html>
