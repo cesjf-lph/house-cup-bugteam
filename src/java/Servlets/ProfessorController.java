@@ -26,47 +26,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-/**
- *
- * @author Filipe
- */
-@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar", "/pontuar"})
+@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar", "/pontuar", "/placar"})
 public class ProfessorController extends HttpServlet {
 
-    @PersistenceUnit(unitName = "Projeto-pu")
+    @PersistenceUnit(unitName = "Projeto-pu")//é necessario informar para fazer a persistencia
     EntityManagerFactory emf;
 
-    @Resource(name = "java:comp/UserTransaction")
+    @Resource(name = "java:comp/UserTransaction")//é necessario informar para fazer a persistencia, projeto-pu é a persistence.xml
     UserTransaction ut;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AlunoJpaController ajc = new AlunoJpaController(ut, emf);
-        ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
-        EventosJpaController ejc = new EventosJpaController(ut, emf);
 
         if (request.getRequestURI().contains("/criar")) {
-            Aluno a = new Aluno();
-            Professor p = new Professor();
-            try {
-                p.setNome(request.getParameter("professor"));
-                a.setNome(request.getParameter("aluno"));
-
-                a.setId(Long.parseLong(request.getParameter("aluno")));
-                p.setId(Long.parseLong(request.getParameter("professor")));
-                int ponto = Integer.parseInt(request.getParameter("Cponto"));
-                Eventos e = new Eventos(a, p, ponto);
-                ejc.create(e);
-                listAll(request, response);
-            } catch (Exception ex) {
-                Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            request.getRequestDispatcher("/WEB-INF/criar.jsp").forward(request, response);
+        } else if (request.getRequestURI().contains("/placar")) {
+            request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
         } else if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
         } else if (request.getRequestURI().contains("/pontuar")) {
+            AlunoJpaController ajc = new AlunoJpaController(ut, emf);//JpaController é classe DAO, que seria funçoes para acesso ao BD
+            ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
 
-            List<Aluno> alunoL = ajc.findAlunoEntities();
+            List<Aluno> alunoL = ajc.findAlunoEntities();//pega os alunos do banco e joga numa lista
             request.setAttribute("alunos", alunoL);
 
             List<Professor> professorL = pjc.findProfessorEntities();
@@ -79,28 +62,35 @@ public class ProfessorController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
+        EventosJpaController ejc = new EventosJpaController(ut, emf);
+        if (request.getRequestURI().contains("/criar")) {
 
-    private void edit(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Long id = Long.parseLong(request.getParameter("id"));
-        String pont = request.getParameter("ponto");
+            Aluno a = new Aluno();
+            Professor p = new Professor();
+            try {
+                p.setNome(request.getParameter("professor"));//pega os atributos(nome) do professor
+                a.setNome(request.getParameter("aluno"));
 
-        EntityManager em = emf.createEntityManager();
-        Aluno aluno = em.find(Aluno.class, id);
+                a.setId(Long.parseLong(request.getParameter("aluno")));
+                p.setId(Long.parseLong(request.getParameter("professor")));
+                int ponto = Integer.parseInt(request.getParameter("Cponto"));
+                Eventos e = new Eventos(a, p, ponto);
+                ejc.create(e);
+                listAll(request, response);// lista todos os eventos
+            } catch (Exception ex) {
+                Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        em.getTransaction().begin();
-        em.persist(aluno);
-        em.getTransaction().commit();
+        } else if (request.getRequestURI().contains("/placar")) {
 
-        listAll(request, response);
+        }
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         EventosJpaController ejc = new EventosJpaController(ut, emf);
         List<Eventos> eventosL = ejc.findEventosEntities();
-        request.setAttribute("eventos", eventosL);
+        request.setAttribute("eventos", eventosL);//pega lista de eventos que direciona para listAll
         request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
     }
 
@@ -109,4 +99,3 @@ public class ProfessorController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
-

@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="criar" method="get">
+        <form action="criar" method="post">
             <div>
 
                 <select name="professor" >
