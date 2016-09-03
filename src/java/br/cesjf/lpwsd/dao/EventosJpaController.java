@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
@@ -157,11 +158,16 @@ public class EventosJpaController implements Serializable {
             em.close();
         }
     }
-     public int getEventosCount2() {
+     public List<Object[]> getEventosCount2() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("SELECT COUNT(e) FROM Eventos AS e");
-            return ((Long) q.getSingleResult()).intValue();
+            TypedQuery<Object[]> q = em.createQuery("SELECT e.aluno.grupo AS GRUPO, SUM(e.pontos) AS TOTAL FROM Eventos AS e GROUP BY e.aluno.grupo",Object[].class);
+            
+            for (Object[] object : q.getResultList()) {
+                System.out.println(object[0]+ ": "+ object[1]);
+            }
+
+            return (q.getResultList());
         } finally {
             em.close();
         }

@@ -39,9 +39,9 @@ public class ProfessorController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getRequestURI().contains("/criar")) {
-            request.getRequestDispatcher("/WEB-INF/criar.jsp").forward(request, response);
-        } else if (request.getRequestURI().contains("/placar")) {
+        if (request.getRequestURI().contains("/placar")) {
+             EventosJpaController dao =new EventosJpaController(ut, emf);
+            System.out.println(dao.getEventosCount2());
             request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
         } else if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
@@ -83,7 +83,7 @@ public class ProfessorController extends HttpServlet {
 
         } else if (request.getRequestURI().contains("/placar")) {
             EventosJpaController dao =new EventosJpaController(ut, emf);
-            System.out.println("ola"+ dao.getEventosCount2());
+            System.out.println(dao.getEventosCount2());
         }
     }
 
