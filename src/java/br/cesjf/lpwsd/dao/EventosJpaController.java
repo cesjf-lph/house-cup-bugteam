@@ -157,5 +157,14 @@ public class EventosJpaController implements Serializable {
             em.close();
         }
     }
+     public int getEventosCount2() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("SELECT COUNT(e) FROM Eventos AS e");
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
     
 }

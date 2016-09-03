@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -82,7 +82,8 @@ public class ProfessorController extends HttpServlet {
             }
 
         } else if (request.getRequestURI().contains("/placar")) {
-
+            EventosJpaController dao =new EventosJpaController(ut, emf);
+            System.out.println("ola"+ dao.getEventosCount2());
         }
     }
 
