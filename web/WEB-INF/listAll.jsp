@@ -24,6 +24,7 @@
                         <td>${evento.aluno.nome}</td>
                         <td>${evento.professor.nome}</td>
                         <td>${evento.pontos}</td>
+                        <td>${evento.data}</td>
                </tr>
                 </c:forEach>  
             </tbody>

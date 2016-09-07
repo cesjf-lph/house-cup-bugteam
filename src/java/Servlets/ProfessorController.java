@@ -12,6 +12,8 @@ import br.cesjf.lpwsd.dao.AlunoJpaController;
 import br.cesjf.lpwsd.dao.EventosJpaController;
 import br.cesjf.lpwsd.dao.ProfessorJpaController;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "ProfessorController", urlPatterns = {"/criar", "/listar", "/pontuar", "/placar"})
+@WebServlet(name = "ProfessorController", urlPatterns = {"/listar", "/pontuar", "/placar"})
 public class ProfessorController extends HttpServlet {
 
     @PersistenceUnit(unitName = "Projeto-pu")//é necessario informar para fazer a persistencia
@@ -39,9 +41,7 @@ public class ProfessorController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getRequestURI().contains("/listar")) {
-            listAll(request, response);
-        } else if (request.getRequestURI().contains("/pontuar")) {
+         if (request.getRequestURI().contains("/pontuar")) {
             AlunoJpaController ajc = new AlunoJpaController(ut, emf);//JpaController é classe DAO, que seria funçoes para acesso ao BD
             ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
 
@@ -64,7 +64,7 @@ public class ProfessorController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         EventosJpaController ejc = new EventosJpaController(ut, emf);
-        if (request.getRequestURI().contains("/criar")) {
+        if (request.getRequestURI().contains("/pontuar")) {
 
             Aluno a = new Aluno();
             Professor p = new Professor();
@@ -75,7 +75,12 @@ public class ProfessorController extends HttpServlet {
                 a.setId(Long.parseLong(request.getParameter("aluno")));
                 p.setId(Long.parseLong(request.getParameter("professor")));
                 int ponto = Integer.parseInt(request.getParameter("Cponto"));
-                Eventos e = new Eventos(a, p, ponto);
+                
+                Date d = new Date();
+                SimpleDateFormat formatador = new SimpleDateFormat ("dd/MM/yyyy");
+                formatador.format(d);
+                
+                Eventos e = new Eventos(a, p, ponto, d);
                 ejc.create(e);
                 listAll(request, response);// lista todos os eventos
             } catch (Exception ex) {

@@ -6,10 +6,12 @@
 package Classes;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -23,16 +25,18 @@ public class Eventos implements Serializable {
     private Aluno aluno;
     private Professor professor;
     private Integer pontos;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date data;
 
     public Eventos() {
     }
 
     
-    public Eventos(Aluno a, Professor p, Integer pontos) {
+    public Eventos(Aluno a, Professor p, Integer pontos, Date data) {
         this.aluno = a;
         this.professor = p;
         this.pontos = pontos;
-        
+        this.data=data;
     }
 
     @Override
@@ -73,6 +77,14 @@ public class Eventos implements Serializable {
 
     public void setPontos(Integer pontos) {
         this.pontos = pontos;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
     
     
