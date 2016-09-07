@@ -39,11 +39,7 @@ public class ProfessorController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getRequestURI().contains("/placar")) {
-             EventosJpaController dao =new EventosJpaController(ut, emf);
-            System.out.println(dao.getEventosCount2());
-            request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
-        } else if (request.getRequestURI().contains("/listar")) {
+        if (request.getRequestURI().contains("/listar")) {
             listAll(request, response);
         } else if (request.getRequestURI().contains("/pontuar")) {
             AlunoJpaController ajc = new AlunoJpaController(ut, emf);//JpaController é classe DAO, que seria funçoes para acesso ao BD
@@ -56,6 +52,11 @@ public class ProfessorController extends HttpServlet {
             request.setAttribute("professores", professorL);
 
             request.getRequestDispatcher("/WEB-INF/pontuar.jsp").forward(request, response);
+        } else if (request.getRequestURI().contains("/placar")) {
+            EventosJpaController dao =new EventosJpaController(ut, emf);
+            
+            request.setAttribute("pg", dao.getEventosCount2());
+             request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
         }
     }
 
@@ -81,9 +82,6 @@ public class ProfessorController extends HttpServlet {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else if (request.getRequestURI().contains("/placar")) {
-            EventosJpaController dao =new EventosJpaController(ut, emf);
-            System.out.println(dao.getEventosCount2());
         }
     }
 

@@ -163,11 +163,9 @@ public class EventosJpaController implements Serializable {
         try {
             TypedQuery<Object[]> q = em.createQuery("SELECT e.aluno.grupo AS GRUPO, SUM(e.pontos) AS TOTAL FROM Eventos AS e GROUP BY e.aluno.grupo",Object[].class);
             
-            for (Object[] object : q.getResultList()) {
-                System.out.println(object[0]+ ": "+ object[1]);
-            }
-
-            return (q.getResultList());
+            List<Object[]> res = q.getResultList();
+            System.out.println(res);
+            return res;
         } finally {
             em.close();
         }

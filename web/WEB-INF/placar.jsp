@@ -10,32 +10,21 @@
         <h1>Placar Geral</h1>
         <table border="1px" cellspacing=0 bordercolor=red>
             <thead>
-              <tr>
-                
-                <th>Grupo 1</th>
-                <th>Grupo 2</th>
-                <th>Grupo 3</th>
-                
-              </tr>
-                
-            </thead>
-            <tbody>
-                <c:forEach var="evento" items="${eventos}">
-               
-                if(${evento.aluno.grupo}== 1){
-                   
-                    }
-                    
-                    
-                    
-                    
-                    
                 <tr>
-                        <td>${evento.aluno.nome}</td>
-                        <td>${evento.professor.nome}</td>
-                        <td>${evento.pontos}</td>
-               </tr>
-                </c:forEach>  
+                    <th>Grupos</th>
+                    <th>Pontos</th>
+                </tr>
+
+            </thead>
+             <tbody>
+            <c:forEach var="dado" items="${pg}">
+                <tr>
+                    <td>${dado[0]}</td>
+                    <td>${dado[1]}</td>
+
+                </tr>
+            </c:forEach>      
             </tbody>
+        </table>
     </body>
 </html>
