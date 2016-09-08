@@ -21,7 +21,7 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author aluno
+ * @author Filipe
  */
 public class EventosJpaController implements Serializable {
 

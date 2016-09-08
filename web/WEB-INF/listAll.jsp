@@ -15,6 +15,7 @@
                 <th>Nome do aluno</th>
                 <th>Professor</th>
                 <th>Pontos</th>
+                <th>Data</th>
               </tr>
                 
             </thead>
@@ -25,8 +26,9 @@
                         <td>${evento.professor.nome}</td>
                         <td>${evento.pontos}</td>
                         <td>${evento.data}</td>
-               </tr>
+                </tr>
                 </c:forEach>  
             </tbody>
+        </table>
     </body>
 </html>

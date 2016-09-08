@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="listar" method="get">
+        <form action="pontuar" method="POST">
             <div>
 
                 <select name="professor" >
@@ -29,7 +29,7 @@
                     </c:forEach> 
                 </select>
                               
-                <input type="text" name="Cponto" value="0" size="3" />
+                <input type="text" name="Cponto" value="" size="3" />
            
             </div>
             <input type="submit" value="Enviar" />
