@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Event</title>
+        <title>Evento</title>
     </head>
     <body>
         <h1>Eventos do sistema</h1>
