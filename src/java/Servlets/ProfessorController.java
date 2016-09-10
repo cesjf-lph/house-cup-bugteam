@@ -103,3 +103,23 @@ public class ProfessorController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
+/*
+SELECT * FROM APP.ALUNO ;
+SELECT * FROM APP.PROFESSOR;
+SELECT * FROM APP.EVENTOS;
+SELECT * FROM APP.EVENTOS WHERE data between '2016-01-01' and '2016-10-01';
+
+
+insert into APP.ALUNO (id,grupo,nome,periodo) values (1,'1','filipe','6');
+insert into APP.ALUNO (id,grupo,nome,periodo) values (2,'1','GESSYELLE','5');
+insert into APP.ALUNO (id,grupo,nome,periodo) values (3,'2','BRUNA','4');
+insert into APP.ALUNO (id,grupo,nome,periodo) values (4,'2','CAETANO','3');
+insert into APP.ALUNO (id,grupo,nome,periodo) values (5,'3','VELOSO','2');
+insert into APP.ALUNO (id,grupo,nome,periodo) values (6,'3','FERNANDA','1');
+insert into APP.ALUNO (id,grupo,nome,periodo) values (7,'4','JOSE','7');
+insert into APP.ALUNO (id,grupo,nome,periodo) values (8,'4','MARIA','8');
+
+
+insert into APP.professor (id,nome) values (1,'BESSA');
+insert into APP.professor (id,nome) values (2,'IGOR');
+*/
