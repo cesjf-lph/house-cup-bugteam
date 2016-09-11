@@ -72,7 +72,7 @@ public class ProfessorController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         EventosJpaController ejc = new EventosJpaController(ut, emf);
-        int s = Integer.parseInt(request.getParameter("semestre"));
+
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, 2014);
         c.set(Calendar.MONTH, Calendar.FEBRUARY);
@@ -105,12 +105,12 @@ public class ProfessorController extends HttpServlet {
             }
 
         } else if (request.getRequestURI().contains("/listaPorSem")) {
-
+            int s = Integer.parseInt(request.getParameter("semestre"));
             request.setAttribute("eventos", ejc.getEventosCount3(listadata.get(s), listadata.get(s + 1)));
 
             request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
         } else if (request.getRequestURI().contains("/placar")) {
-
+            int s = Integer.parseInt(request.getParameter("semestre"));
             request.setAttribute("pg", ejc.getEventosCount2(listadata.get(s), listadata.get(s + 1)));
 
             request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
