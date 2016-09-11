@@ -19,15 +19,16 @@
                 
             </thead>
             <tbody>
-                <c:forEach var="evento" items="${eventos}">
+                <c:forEach var="datas" items="${ld}">
                 <tr>
-                        <td>${evento.aluno.nome}</td>
-                        <td>${evento.professor.nome}</td>
-                        <td>${evento.data}</td>
+                        <td>${datas}</td>
+                        
                </tr>
                 </c:forEach>  
+           
             </tbody>
-    </body>
+        </table>
+        </body>
     
 </html>
 

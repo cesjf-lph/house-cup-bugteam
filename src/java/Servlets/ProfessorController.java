@@ -11,8 +11,11 @@ import Classes.Professor;
 import br.cesjf.lpwsd.dao.AlunoJpaController;
 import br.cesjf.lpwsd.dao.EventosJpaController;
 import br.cesjf.lpwsd.dao.ProfessorJpaController;
+import br.cesjf.lpwsd.dao.exceptions.RollbackFailureException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-@WebServlet(name = "ProfessorController", urlPatterns = {"/listar", "/pontuar", "/placar"})
+@WebServlet(name = "ProfessorController", urlPatterns = {"/listar", "/listaPorSem", "/pontuar", "/placar"})
 public class ProfessorController extends HttpServlet {
 
     @PersistenceUnit(unitName = "Projeto-pu")//é necessario informar para fazer a persistencia
@@ -40,7 +43,7 @@ public class ProfessorController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        EventosJpaController dao = new EventosJpaController(ut, emf);
         if (request.getRequestURI().contains("/pontuar")) {
             AlunoJpaController ajc = new AlunoJpaController(ut, emf);//JpaController é classe DAO, que seria funçoes para acesso ao BD
             ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
@@ -53,23 +56,40 @@ public class ProfessorController extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/pontuar.jsp").forward(request, response);
 
-        }
-        else if (request.getRequestURI().contains("/placar")) {
-            EventosJpaController dao = new EventosJpaController(ut, emf);
+        } else if (request.getRequestURI().contains("/placar")) {
 
             request.setAttribute("pg", dao.getEventosCount2());
             request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
-            
+
         } else if (request.getRequestURI().contains("/listar")) {
 
             listAll(request, response);
+        } else if (request.getRequestURI().contains("/listaPorSem")) {
+//int s=5;
+//            Calendar c = Calendar.getInstance();
+//            c.set(Calendar.YEAR, 2014);
+//            c.set(Calendar.MONTH, Calendar.FEBRUARY);
+//            c.set(Calendar.DAY_OF_MONTH, 2);
+//
+//            ArrayList<Date> listadata = new ArrayList<Date>();
+//            listadata.add(c.getTime());
+//            for (int i = 1; i <= 10; i++) {
+//                c.add(Calendar.MONTH, 6);
+//                listadata.add(c.getTime());
+//            }
+//
+//           System.out.println(dao.getEventosCount3(listadata.get(s),listadata.get(s+1)));
+////           System.out.println(dao.getEventosCount4(listadata.get(s)));
+////           System.out.println(dao.getEventosCount4(listadata.get(s+1)));
+            request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
+
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- EventosJpaController ejc = new EventosJpaController(ut, emf);
+        EventosJpaController ejc = new EventosJpaController(ut, emf);
         if (request.getRequestURI().contains("/pontuar")) {
             Aluno a = new Aluno();
             Professor p = new Professor();
@@ -82,9 +102,6 @@ public class ProfessorController extends HttpServlet {
                 int ponto = Integer.parseInt(request.getParameter("Cponto"));
 
                 Date d = new Date();
-                SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-                formatador.format(d);
-                //System.out.println(d);
                 Eventos e = new Eventos(a, p, ponto, d);
                 ejc.create(e);
                 listAll(request, response);// lista todos os eventos
@@ -93,6 +110,26 @@ public class ProfessorController extends HttpServlet {
             }
 
         }
+        else if (request.getRequestURI().contains("/listaPorSem")) {
+            int s = Integer.parseInt(request.getParameter("semestre"));
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, 2014);
+            c.set(Calendar.MONTH, Calendar.FEBRUARY);
+            c.set(Calendar.DAY_OF_MONTH, 2);
+
+            ArrayList<Date> listadata = new ArrayList<Date>();// lista para carregar as datas
+            listadata.add(c.getTime());
+            for (int i = 1; i <= 10; i++) {
+                c.add(Calendar.MONTH, 6);
+                listadata.add(c.getTime());
+            }
+            
+           
+                request.setAttribute("eventos", ejc.getEventosCount3(listadata.get(s), listadata.get(s+1)));
+            
+            request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
+        }
+
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -127,4 +164,4 @@ insert into APP.ALUNO (id,grupo,nome,periodo) values (8,'4','MARIA','8');
 
 insert into APP.professor (id,nome) values (1,'BESSA');
 insert into APP.professor (id,nome) values (2,'IGOR');
-*/
+ */

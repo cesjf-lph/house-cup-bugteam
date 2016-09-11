@@ -15,7 +15,6 @@
                 <th>Nome do aluno</th>
                 <th>Professor</th>
                 <th>Pontos</th>
-                <th>Data</th>
               </tr>
                 
             </thead>
@@ -25,10 +24,26 @@
                         <td>${evento.aluno.nome}</td>
                         <td>${evento.professor.nome}</td>
                         <td>${evento.pontos}</td>
-                        <td>${evento.data}</td>
                 </tr>
                 </c:forEach>  
             </tbody>
         </table>
+        
+        <form action="listaPorSem" method="POST">
+            <select name="semestre">
+                <option>Selecione o periodo</option>
+                <option value="0">1° Semetre de 2014</option>
+                <option value="1">2° Semetre de 2014</option>
+                <option value="2">1° Semetre de 2015</option>
+                <option value="3">2° Semetre de 2015</option>
+                <option value="4">1° Semetre de 2016</option>
+                <option value="5">2° Semetre de 2016</option>
+                <option value="6">1° Semetre de 2017</option>
+                <option value="7">1° Semetre de 2017</option>
+                <option value="8">1° Semetre de 2018</option>
+                <option value="9">2° Semetre de 2018</option>
+            </select>
+            <input type="submit" value="Pesquisar" />
+        </form>
     </body>
 </html>

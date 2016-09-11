@@ -9,6 +9,8 @@ import Classes.Eventos;
 import br.cesjf.lpwsd.dao.exceptions.NonexistentEntityException;
 import br.cesjf.lpwsd.dao.exceptions.RollbackFailureException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -170,5 +172,29 @@ public class EventosJpaController implements Serializable {
             em.close();
         }
     }
-    
+     public List<Eventos> getEventosCount3(Date i, Date f)  {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Eventos> q = em.createQuery("SELECT e FROM Eventos e WHERE e.data BETWEEN :data1 AND :data2",Eventos.class);
+            q.setParameter("data1", i);
+            q.setParameter("data2", f);
+            
+            return q.getResultList();
+        } 
+        finally {
+            em.close();
+        }
+    }
+     public Date getEventosCount4(Date i)  {
+        EntityManager em = getEntityManager();
+        try {
+           
+           
+            
+            return i;
+        } 
+        finally {
+            em.close();
+        }
+    }
 }
