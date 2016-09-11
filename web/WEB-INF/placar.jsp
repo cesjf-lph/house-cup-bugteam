@@ -26,7 +26,7 @@
             </c:forEach>      
             </tbody>
         </table>
-        <form action="listaPorSem" method="POST">
+        <form action="placar" method="POST">
             <select name="semestre">
                 <option>Selecione o periodo</option>
                 <option value="0">1° Semetre de 2014</option>

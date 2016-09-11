@@ -43,7 +43,6 @@ public class ProfessorController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        EventosJpaController dao = new EventosJpaController(ut, emf);
         if (request.getRequestURI().contains("/pontuar")) {
             AlunoJpaController ajc = new AlunoJpaController(ut, emf);//JpaController é classe DAO, que seria funçoes para acesso ao BD
             ProfessorJpaController pjc = new ProfessorJpaController(ut, emf);
@@ -73,7 +72,20 @@ public class ProfessorController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         EventosJpaController ejc = new EventosJpaController(ut, emf);
+        int s = Integer.parseInt(request.getParameter("semestre"));
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, 2014);
+        c.set(Calendar.MONTH, Calendar.FEBRUARY);
+        c.set(Calendar.DAY_OF_MONTH, 2);
+
+        ArrayList<Date> listadata = new ArrayList<Date>();// lista para carregar as datas
+        listadata.add(c.getTime());
+        for (int i = 1; i <= 10; i++) {
+            c.add(Calendar.MONTH, 6);
+            listadata.add(c.getTime());
+        }
         if (request.getRequestURI().contains("/pontuar")) {
+
             Aluno a = new Aluno();
             Professor p = new Professor();
             try {
@@ -93,39 +105,15 @@ public class ProfessorController extends HttpServlet {
             }
 
         } else if (request.getRequestURI().contains("/listaPorSem")) {
-            int s = Integer.parseInt(request.getParameter("semestre"));
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.YEAR, 2014);
-            c.set(Calendar.MONTH, Calendar.FEBRUARY);
-            c.set(Calendar.DAY_OF_MONTH, 2);
-
-            ArrayList<Date> listadata = new ArrayList<Date>();// lista para carregar as datas
-            listadata.add(c.getTime());
-            for (int i = 1; i <= 10; i++) {
-                c.add(Calendar.MONTH, 6);
-                listadata.add(c.getTime());
-            }
 
             request.setAttribute("eventos", ejc.getEventosCount3(listadata.get(s), listadata.get(s + 1)));
 
             request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
         } else if (request.getRequestURI().contains("/placar")) {
-            int s = Integer.parseInt(request.getParameter("semestre"));
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.YEAR, 2014);
-            c.set(Calendar.MONTH, Calendar.FEBRUARY);
-            c.set(Calendar.DAY_OF_MONTH, 2);
-
-            ArrayList<Date> listadata = new ArrayList<Date>();// lista para carregar as datas
-            listadata.add(c.getTime());
-            for (int i = 1; i <= 10; i++) {
-                c.add(Calendar.MONTH, 6);
-                listadata.add(c.getTime());
-            }
 
             request.setAttribute("pg", ejc.getEventosCount2(listadata.get(s), listadata.get(s + 1)));
 
-            request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
         }
     }
 
@@ -142,23 +130,3 @@ public class ProfessorController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
-/*
-SELECT * FROM APP.ALUNO ;
-SELECT * FROM APP.PROFESSOR;
-SELECT * FROM APP.EVENTOS;
-SELECT * FROM APP.EVENTOS WHERE data between '2016-01-01' and '2016-10-01';
-
-
-insert into APP.ALUNO (id,grupo,nome,periodo) values (1,'1','filipe','6');
-insert into APP.ALUNO (id,grupo,nome,periodo) values (2,'1','GESSYELLE','5');
-insert into APP.ALUNO (id,grupo,nome,periodo) values (3,'2','BRUNA','4');
-insert into APP.ALUNO (id,grupo,nome,periodo) values (4,'2','CAETANO','3');
-insert into APP.ALUNO (id,grupo,nome,periodo) values (5,'3','VELOSO','2');
-insert into APP.ALUNO (id,grupo,nome,periodo) values (6,'3','FERNANDA','1');
-insert into APP.ALUNO (id,grupo,nome,periodo) values (7,'4','JOSE','7');
-insert into APP.ALUNO (id,grupo,nome,periodo) values (8,'4','MARIA','8');
-
-
-insert into APP.professor (id,nome) values (1,'BESSA');
-insert into APP.professor (id,nome) values (2,'IGOR');
- */
