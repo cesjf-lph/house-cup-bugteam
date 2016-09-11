@@ -160,14 +160,14 @@ public class EventosJpaController implements Serializable {
             em.close();
         }
     }
-     public List<Object[]> getEventosCount2() {
+     public List<Object[]> getEventosCount2(Date i, Date f) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Object[]> q = em.createQuery("SELECT e.aluno.grupo AS GRUPO, SUM(e.pontos) AS TOTAL FROM Eventos AS e GROUP BY e.aluno.grupo",Object[].class);
-            
-            List<Object[]> res = q.getResultList();
-            System.out.println(res);
-            return res;
+            TypedQuery<Object[]> q = em.createQuery("SELECT e.aluno.grupo AS GRUPO, SUM(e.pontos) AS TOTAL FROM Eventos AS e WHERE e.data BETWEEN :data1 AND :data2 GROUP BY e.aluno.grupo",Object[].class);
+            q.setParameter("data1", i);
+            q.setParameter("data2", f);
+
+            return q.getResultList();
         } finally {
             em.close();
         }
@@ -180,18 +180,6 @@ public class EventosJpaController implements Serializable {
             q.setParameter("data2", f);
             
             return q.getResultList();
-        } 
-        finally {
-            em.close();
-        }
-    }
-     public Date getEventosCount4(Date i)  {
-        EntityManager em = getEntityManager();
-        try {
-           
-           
-            
-            return i;
         } 
         finally {
             em.close();

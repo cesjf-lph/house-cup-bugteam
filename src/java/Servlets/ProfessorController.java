@@ -58,29 +58,12 @@ public class ProfessorController extends HttpServlet {
 
         } else if (request.getRequestURI().contains("/placar")) {
 
-            request.setAttribute("pg", dao.getEventosCount2());
             request.getRequestDispatcher("/WEB-INF/placar.jsp").forward(request, response);
 
         } else if (request.getRequestURI().contains("/listar")) {
 
             listAll(request, response);
         } else if (request.getRequestURI().contains("/listaPorSem")) {
-//int s=5;
-//            Calendar c = Calendar.getInstance();
-//            c.set(Calendar.YEAR, 2014);
-//            c.set(Calendar.MONTH, Calendar.FEBRUARY);
-//            c.set(Calendar.DAY_OF_MONTH, 2);
-//
-//            ArrayList<Date> listadata = new ArrayList<Date>();
-//            listadata.add(c.getTime());
-//            for (int i = 1; i <= 10; i++) {
-//                c.add(Calendar.MONTH, 6);
-//                listadata.add(c.getTime());
-//            }
-//
-//           System.out.println(dao.getEventosCount3(listadata.get(s),listadata.get(s+1)));
-////           System.out.println(dao.getEventosCount4(listadata.get(s)));
-////           System.out.println(dao.getEventosCount4(listadata.get(s+1)));
             request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
 
         }
@@ -109,8 +92,7 @@ public class ProfessorController extends HttpServlet {
                 Logger.getLogger(ProfessorController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
-        else if (request.getRequestURI().contains("/listaPorSem")) {
+        } else if (request.getRequestURI().contains("/listaPorSem")) {
             int s = Integer.parseInt(request.getParameter("semestre"));
             Calendar c = Calendar.getInstance();
             c.set(Calendar.YEAR, 2014);
@@ -123,13 +105,28 @@ public class ProfessorController extends HttpServlet {
                 c.add(Calendar.MONTH, 6);
                 listadata.add(c.getTime());
             }
-            
-           
-                request.setAttribute("eventos", ejc.getEventosCount3(listadata.get(s), listadata.get(s+1)));
-            
+
+            request.setAttribute("eventos", ejc.getEventosCount3(listadata.get(s), listadata.get(s + 1)));
+
+            request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
+        } else if (request.getRequestURI().contains("/placar")) {
+            int s = Integer.parseInt(request.getParameter("semestre"));
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, 2014);
+            c.set(Calendar.MONTH, Calendar.FEBRUARY);
+            c.set(Calendar.DAY_OF_MONTH, 2);
+
+            ArrayList<Date> listadata = new ArrayList<Date>();// lista para carregar as datas
+            listadata.add(c.getTime());
+            for (int i = 1; i <= 10; i++) {
+                c.add(Calendar.MONTH, 6);
+                listadata.add(c.getTime());
+            }
+
+            request.setAttribute("pg", ejc.getEventosCount2(listadata.get(s), listadata.get(s + 1)));
+
             request.getRequestDispatcher("/WEB-INF/listAll.jsp").forward(request, response);
         }
-
     }
 
     private void listAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
