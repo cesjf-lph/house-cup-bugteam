@@ -10,8 +10,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+                <style type="text/css">
+
+            body {
+                background: #f8f8f8;
+                padding:0;
+                margin:100%;
+                position: center;
+                font-family: arial, helvetica, sans-serif;
+                font-size: 15px;
+                margin:auto auto auto auto;
+                width:100%;
+                height:100%;
+            }
+        </style>
     </head>
     <body>
+        <center>
+        <h1>BugTeam</h1>
+        Para pontuar um aluno é necessário informar o professor, aluno e a nota:<p>
         <form action="pontuar" method="POST">
             <div>
 
@@ -29,11 +46,12 @@
                     </c:forEach> 
                 </select>
                               
-                <input type="text" name="Cponto" value="" size="3" />
+                <input type="text" name="Cponto" value="" size="4" tabindex="1" placeholder="Pontos" />
            
             </div>
             <input type="submit" value="Enviar" />
        
         </form>
+        </center>
     </body>
 </html>

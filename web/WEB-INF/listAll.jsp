@@ -5,30 +5,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List all</title>
+        <style type="text/css">
+
+            body {
+                background: #f8f8f8;
+                padding:0;
+                margin:100%;
+                position: center;
+                font-family: arial, helvetica, sans-serif;
+                font-size: 15px;
+                margin:auto auto auto auto;
+                width:100%;
+                height:100%;
+            }
+        </style>
     </head>
     <body>
-        <h1>Alunos</h1>
-        <table border="1px" cellspacing=0 bordercolor=red>
-            <thead>
-              <tr>
-                
-                <th>Nome do aluno</th>
-                <th>Professor</th>
-                <th>Pontos</th>
-              </tr>
-                
-            </thead>
-            <tbody>
-                <c:forEach var="evento" items="${eventos}">
-                <tr>
-                        <td>${evento.aluno.nome}</td>
-                        <td>${evento.professor.nome}</td>
-                        <td>${evento.pontos}</td>
-                </tr>
-                </c:forEach>  
-            </tbody>
-        </table>
-        
+        <center>
+        <h1>BugTeam</h1>
+        Listar todas as notas por semestre<p>
         <form action="listaPorSem" method="POST">
             <select name="semestre">
                 <option>Selecione o periodo</option>
@@ -45,5 +40,26 @@
             </select>
             <input type="submit" value="Pesquisar" />
         </form>
+        <table border="1px" cellspacing=0 bordercolor=red>
+            <thead>
+                <tr>
+
+                    <th width=33%>Nome do aluno</th>
+                    <th width=33%>Professor</th>
+                    <th width=33%>Pontos</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <c:forEach var="evento" items="${eventos}">
+                    <tr>
+                        <td>${evento.aluno.nome}</td>
+                        <td>${evento.professor.nome}</td>
+                        <td>${evento.pontos}</td>
+                    </tr>
+                </c:forEach>  
+            </tbody>
+        </table>
+        </center>
     </body>
 </html>
