@@ -27,7 +27,7 @@
             </select>
             <input type="submit" value="Pesquisar" /><p>
         </form>
-        <table border="1px" cellspacing=0 bordercolor=red>
+        <table border="1px" cellspacing=0>
             <thead>
                 <tr>
                     <th width=110px>Grupos</th>
