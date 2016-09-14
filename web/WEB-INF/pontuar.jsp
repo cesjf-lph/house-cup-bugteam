@@ -10,20 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-                <style type="text/css">
-
-            body {
-                background: #f8f8f8;
-                padding:0;
-                margin:100%;
-                position: center;
-                font-family: arial, helvetica, sans-serif;
-                font-size: 15px;
-                margin:auto auto auto auto;
-                width:100%;
-                height:100%;
-            }
-        </style>
+        <link type="text/css" rel="stylesheet" href="Css/estilo.css">
     </head>
     <body>
         <center>
@@ -47,11 +34,13 @@
                 </select>
                               
                 <input type="text" name="Cponto" value="" size="4" tabindex="1" placeholder="Pontos" />
-           
+           <input type="submit" value="Enviar" />
             </div>
-            <input type="submit" value="Enviar" />
+            
        
         </form>
+        <button  id="placar" value="acao" name="acao"  onclick="location.href='placar'">Placar</button>
+    <button  id="listar" value="acao" name="acao"  onclick="location.href='listar'">Listar todos</button>
         </center>
     </body>
 </html>

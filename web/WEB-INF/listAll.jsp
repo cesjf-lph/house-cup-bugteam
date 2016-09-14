@@ -5,20 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List all</title>
-        <style type="text/css">
-
-            body {
-                background: #f8f8f8;
-                padding:0;
-                margin:100%;
-                position: center;
-                font-family: arial, helvetica, sans-serif;
-                font-size: 15px;
-                margin:auto auto auto auto;
-                width:100%;
-                height:100%;
-            }
-        </style>
+        <link type="text/css" rel="stylesheet" href="Css/estilo.css">
     </head>
     <body>
         <center>
@@ -44,9 +31,9 @@
             <thead>
                 <tr>
 
-                    <th width=33%>Nome do aluno</th>
-                    <th width=33%>Professor</th>
-                    <th width=33%>Pontos</th>
+                    <th>Nome do aluno</th>
+                    <th>Professor</th>
+                    <th>Pontos</th>
                 </tr>
 
             </thead>
@@ -60,6 +47,10 @@
                 </c:forEach>  
             </tbody>
         </table>
+        
+    <button  id="placar" value="acao" name="acao"  onclick="location.href='placar'">Placar</button>
+    <button  id="listar" value="acao" name="acao"  onclick="location.href='listar'">Listar todos</button>
+    <button  id="pontuar" value="acao" name="acao"  onclick="location.href='pontuar'">Pontuar</button>
         </center>
     </body>
 </html>
